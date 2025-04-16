@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <header-page :titlePage="'Regra de Sinalização'" />
+    <header-page :titlePage="'Tela Funcional'" />
     <div class="q-pl-md">
       <q-breadcrumbs class="text-black" active-color="primary">
         <template v-slot:separator>
