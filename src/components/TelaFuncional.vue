@@ -1,10 +1,6 @@
 <template>
 <div class="container">
  <h1>Comentários</h1>
- <h2>Comentários Analisando diferenças de tamanho</h2>
- <h3>Comentários Analisando diferenças de tamanho</h3>
- <h4>Comentários Analisando diferenças de tamanho</h4>
- <h5>Comentários Analisando diferenças de tamanho</h5>
  <hr />
  <div class="form-todo form-group">
     <p>
@@ -32,41 +28,53 @@
 </template>
 
 <script>
+import comentarioService from '@/services/comentarioService';
+
 export default {
-  name: "TelaFuncional",
-
-data(){
-    return{
-        comments: [],
-        name:'',
-        message:''
-         }
-
+  data() {
+    return {
+      comments: [],
+      name: '',
+      message: ''
+    };
+  },
+  mounted() {
+    this.carregarComentarios();
+  },
+  methods: {
+    carregarComentarios() {
+      comentarioService.listar().then(res => {
+        this.comments = res.data;
+      });
     },
-    methods: {
-        addComment(){
-        if(this.message.trim() === '') {
-            return;
-        }
-        this.comments.push({
-            name: this.name,
-            message: this.message
-        });
+    addComment() {
+      if (this.message.trim() === '') return;
 
-        this.name='';
-        this.message='';
-        },
-        removeComment(index){
-                this.comments.splice(index, 1);
-        }
-        },
-        computed:{
-        allComments(){
-            return this.comments.map( comment => ({ ...comment, name: comment.name.trim() === '' ? 'Anônimo' : comment.name}))
-        }
-        }
+      const novoComentario = {
+        name: this.name,
+        message: this.message
+      };
 
-
-
+      comentarioService.adicionar(novoComentario).then(() => {
+        this.carregarComentarios();
+        this.name = '';
+        this.message = '';
+      });
+    },
+    removeComment(index) {
+      const id = this.comments[index].id;
+      comentarioService.excluir(id).then(() => {
+        this.carregarComentarios();
+      });
+    }
+  },
+  computed: {
+    allComments() {
+      return this.comments.map(comment => ({
+        ...comment,
+        name: comment.name.trim() === '' ? 'Anônimo' : comment.name
+      }));
+    }
+  }
 };
 </script>

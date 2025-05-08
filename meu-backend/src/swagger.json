@@ -84,6 +84,59 @@
           }
         }
       }
+    },
+    "/comentarios": {
+      "get": {
+        "summary": "Listar comentários",
+        "responses": {
+          "200": {
+            "description": "Lista de comentários"
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar comentário",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "comentario",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "message": { "type": "string" }
+              },
+              "required": ["message"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Comentário criado com sucesso"
+          }
+        }
+      }
+    },
+    "/comentarios/{id}": {
+      "delete": {
+        "summary": "Excluir comentário",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Comentário excluído com sucesso"
+          },
+          "404": {
+            "description": "Comentário não encontrado"
+          }
+        }
+      }
     }
   }
 }
