@@ -1,0 +1,89 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "API de Tarefas",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "paths": {
+    "/tarefas": {
+      "get": {
+        "summary": "Listar tarefas",
+        "responses": {
+          "200": {
+            "description": "Lista de tarefas"
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar tarefa",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "tarefa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "descricao": { "type": "string" }
+              },
+              "required": ["descricao"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Criado com sucesso"
+          }
+        }
+      }
+    },
+    "/tarefas/{id}": {
+      "put": {
+        "summary": "Atualizar status da tarefa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "tarefa",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "concluida": { "type": "boolean" }
+              },
+              "required": ["concluida"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Atualizada com sucesso"
+          },
+          "404": {
+            "description": "Não encontrada"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remover tarefa",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Removida com sucesso"
+          }
+        }
+      }
+    }
+  }
+}

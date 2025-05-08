@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <TelaFuncional />
+    <TodoList />
   </div>
 </template>
 
 <script>
-import TelaFuncional from './components/TelaFuncional.vue'
+import TodoList from './components/TodoList.vue'
 
 export default {
   name: 'App',
   components: {
-    TelaFuncional
+    TodoList
   }
 }
 </script>
